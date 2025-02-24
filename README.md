@@ -236,6 +236,21 @@ In here, the root domain name `Hello.local`
 
 Now proceed with the installation and restart the Server
 
+#### Creating Domain User Account
+
+In the server managers tool, you can see this option:
+
+![image](https://github.com/user-attachments/assets/ced6f5ba-e420-4862-9230-200f7eb85529)
+
+Lets create a new Organization Unit, named IT and add a user called Michael Jack.
+
+![image](https://github.com/user-attachments/assets/c3d24212-2100-466b-a17d-50861e1e477e)
+
+Also Organization unit named HR and add Valorant as user.
+
+![image](https://github.com/user-attachments/assets/3c68ec91-0ebb-4e0b-80ef-fedcbd9ff876)
+
+
 #### Reach Splunk Server Web Interface and Configure Listening
 enter the splunk server ip with the default port 8000 in the browser
 
@@ -254,6 +269,7 @@ In the Receive data option click Add new. Set the default port `9997` and save i
 Go to Settings > Indexes
 
 Create New Index as `endpoint` and save it. You can name the Index of your choice that make sense but in here I am gonna name it as `endpoint`. 
+
 #### Download and Install Splunk Forwarder
 
 Use the same credential you used for the Splunk Enterprise Free trial on your host Machine in here also and download the Splunk forwarder from the website.
@@ -319,11 +335,20 @@ As we created the index as `endpoint`, I mentioned the index as endpoint but if 
 Configure the SplunkForwarder Service to run as Local System Account.
 ![image](https://github.com/user-attachments/assets/cc4427d9-9a77-42a6-999e-8fa6e38aa588)
 
-Now stop and start the SplunkForwarder Service in the Windows 10 Pro Machine.
+Now stop and start the SplunkForwarder Service in the Windows Server.
 
 ![image](https://github.com/user-attachments/assets/65fdb705-40c4-4de6-9f18-5ce8cf1b20d6)
 
 Everytime you make any changes to the SplunkForwarder, Make sure you restart the SplunkForwader service then only the changes will be reflected on the Splunk Server.
+
+#### Enable RDP
+Go to This PC > Properties > Advanced System Settings
+
+![image](https://github.com/user-attachments/assets/f17c469b-3e11-49d8-818d-3b4a2090151f)
+
+![image](https://github.com/user-attachments/assets/f2e47ae8-2f23-414b-b4af-69b47f5c12e4)
+
+Select Users and add users.
 
 ### Step 8 ~ Configuring Windows 10
 
@@ -331,7 +356,138 @@ Everytime you make any changes to the SplunkForwarder, Make sure you restart the
 ![image](https://github.com/user-attachments/assets/26f9915d-70fb-48c8-8d04-b503d07c7de7)
 
 #### Assigning Static Ip Address
-![image](https://github.com/user-attachments/assets/e3c4c5d3-8f15-4b4e-bed1-4bc4cf75937d)
+![image](https://github.com/user-attachments/assets/df48dcbb-63ba-4ae4-9132-c5f1abb50db2)
 
-### Setting up the Domain
+Set the dns address as Domain controller's ip adress.
 
+### connecting our Windows 10 machine to the Domain
+
+![image](https://github.com/user-attachments/assets/3277d276-8bc7-4c23-8158-fed20fe7a8aa)
+
+![image](https://github.com/user-attachments/assets/d14bd2b5-7026-4fcb-a8aa-bff33bf6980d)
+
+Enter the domain name here, in our case `Hello.local`
+
+After changing that click okay and restart the device.
+
+Now you can login using the Domain user credential and you are joined to te domain succesfully 
+
+
+#### Download and Install Splunk Forwarder
+
+Use the same credential you used for the Splunk Enterprise Free trial on your host Machine in here also and download the Splunk forwarder from the website.
+
+Once download it complete. Now Install the Splunk forwarder.
+
+![image](https://github.com/user-attachments/assets/30522815-33ec-45d2-ac82-70e66e766b6b)
+During the Installation Process, Make sure you configure the indexer to your Splunk Server instance with the default port of `9997`
+
+#### Downloading and installing Sysmon
+
+Downlaod it from the Sysinternals.
+
+For sysmon config, we are using olafs config file
+https://github.com/olafhartong/sysmon-modular/blob/master/sysmonconfig.xml
+
+Open Powershell and locate into the sysmon executable directory
+
+```
+.\Sysmon64.exe -i ..\sysmonconfig.xml
+```
+
+`sysmonconfig.xml`, this is the config file that we are mentioning. Now accept the license agreement and install the sysmon. 
+
+#### Forwarding Sysmon logs and Windows Event Logs
+
+locate into `C:\Program Files\SplunkUniversalForwarder\etc\system\local\`
+
+As you don't want to mess up your default `input.conf` file, we are creating a new `input.conf` file in this directory and using it to forward logs.
+
+```
+[WinEventLog://Application]
+
+index = endpoint
+
+disabled = false
+
+[WinEventLog://Security]
+
+index = endpoint
+
+disabled = false
+
+[WinEventLog://System]
+
+index = endpoint
+
+disabled = false
+
+[WinEventLog://Microsoft-Windows-Sysmon/Operational]
+
+index = endpoint
+
+disabled = false
+
+renderXml = true
+
+source = XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
+```
+
+As we created the index as `endpoint`, I mentioned the index as endpoint but if you named it anythign else then change it accordingly. Now copy it and paste it in the new `input.conf` file that you created in the above mentioned directory.
+
+Configure the SplunkForwarder Service to run as Local System Account.
+![image](https://github.com/user-attachments/assets/cc4427d9-9a77-42a6-999e-8fa6e38aa588)
+
+Now stop and start the SplunkForwarder Service in the Windows 10 Machine.
+
+### Step 9 ~ Configuring Parrot Machine and Bruteforcing RDP
+
+#### Assigning Static Ip Address
+
+```
+nmcli connection modify "your_connection_name" ipv4.addresses 192.168.1.100/24
+nmcli connection modify "your_connection_name" ipv4.gateway 192.168.1.1
+nmcli connection modify "your_connection_name" ipv4.method manual
+nmcli connection modify "your_connection_name" ipv4.dns "8.8.8.8 8.8.4.4"
+```
+
+Now Restart the Connection
+
+```
+nmcli connection down "your_connection_name" && nmcli connection up "your_connection_name"
+```
+
+#### Setting up the Environment
+```
+mkdir AD-Project
+```
+
+We will work our attack upon this folder to make this organized.
+
+#### Installing crowbar
+
+```
+sudo apt update && sudo apt install crowbar
+```
+
+#### Getting our wordlist
+
+```
+cd /usr/share/wordlist
+```
+
+We can find the famous rockyou.txt password list but it won't be enough to crack the password so from a attacker perspective they need to do Information Gathering in order to acquire valid information about the target and they will make the wordlist depends on that information.
+
+We will just get the first 10 password of the rockyou.txt and add the real password in there to simulate the attack.
+
+```
+head -n 10 /usr/share/wordlist/rockyou.txt > ~/AD-Project/passwords.txt
+```
+
+```
+nano passwords.txt
+```
+
+Now we can add the password in between to succesfully bruteforce the user's rdp.
+
+##### Bruteforcing using crowbar 
