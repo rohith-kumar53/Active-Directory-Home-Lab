@@ -360,7 +360,8 @@ Set the DNS address as the Domain Controller's IP address.
 
 ![image](https://github.com/user-attachments/assets/3277d276-8bc7-4c23-8158-fed20fe7a8aa)
 
-![image](https://github.com/user-attachments/assets/d14bd2b5-7026-4fcb-a8aa-bff33bf6980d)
+![image](https://github.com/user-attachments/assets/88ea687f-da45-4e52-b13f-0fbccccc3342)
+
 
 Enter the domain name here; in our case, `Hello.local`.
 
