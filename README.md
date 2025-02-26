@@ -88,7 +88,7 @@ We need to configure all the VMs to the same NAT network.
 
 ![image](https://github.com/user-attachments/assets/7b144ed7-79a9-445e-8f9f-7246cacc11e7)
 
-We need to create a new NAT network using any private address range and name the network according to our preference.
+We need to create a new NAT network using any private IP address range and name the network according to our preference.
 
 ![image](https://github.com/user-attachments/assets/52131323-20ba-41da-93d3-3a6a96f9c1ed)
 
