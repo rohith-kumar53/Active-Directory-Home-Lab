@@ -20,7 +20,8 @@ The Active Directory project aimed to establish a secure and monitored AD enviro
 - Crowbar – Performed brute-force attacks on remote services.
 
 ### Network Diagram
-![Screenshot 2025-02-21 180550](https://github.com/user-attachments/assets/68d8fb15-b8f8-424f-8ca6-d8014fde4243)
+![image](https://github.com/user-attachments/assets/8a450f85-3451-4fe0-83d9-3561e5cc086f)
+
 
 The Active Directory (AD), Windows 10 client machine, Splunk server, and adversary machine are all on the same NAT network. The Active Directory hosts a domain named Hello.local, and the Windows 10 machine is joined to the domain using a domain user account. The Splunk server is configured as a SIEM, with Sysmon installed on both the Active Directory and Windows 10 machine for log enrichment. Logs are forwarded to the Splunk server via Splunk Universal Forwarder. The Parrot machine acts as an adversary to generate telemetry. Additionally, Atomic Red Team is installed on the Windows 10 machine to simulate various TTPs, allowing us to assess visibility and detection capabilities in our SIEM.
 
