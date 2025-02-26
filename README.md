@@ -26,89 +26,83 @@ The Active Directory (AD), Windows 10 client machine, Splunk server, and adversa
 
 ## Steps
 
-### Step 1 ~ Installing Windows 10 Pro Virtual Machine
-In this project Virtual box is used as the hypervisor but you can use any supported hypervisor you want. 
+### Step 1: Installing the Windows 10 Virtual Machine
+In this project, VirtualBox is used as the hypervisor, but you can use any supported hypervisor you prefer.
 
-Download the Windows 10 iso from the official Microsoft site.
+Download the Windows 10 ISO from the official Microsoft website.
 
-Now create a new Virtual Machine then select the iso image.
+Next, create a new Virtual Machine and select the ISO image.
 
 ![Screenshot 2025-02-21 182715](https://github.com/user-attachments/assets/5ac577d2-2eb3-4b3b-95cd-ebc6aaa16e1e)
 
-Check the Skip Unintended installation and assign the hardware resources you want, for memory, it is recommended to assign 4gb as Memory for better user experience.
+Check the 'Skip Unintended Installation' option and assign the hardware resources you want. For memory, it is recommended to allocate 4GB for better user experience.
 
 ![Screenshot 2025-02-21 184921](https://github.com/user-attachments/assets/6bcc9bbf-8ea6-4736-9169-6c1dbfb8e9f8)
 
-Select Windows 10 pro, so only you can able to connect to the domain and also you can perform other features like enabling rdp on this windows device, etc.
+Select Windows 10 Pro, so you will be able to connect to the domain and also perform other tasks, such as enabling RDP on this Windows device, etc.
 
 ![Screenshot 2025-02-21 185010](https://github.com/user-attachments/assets/051a5808-c1d6-4db7-a1af-aa10dbf169a8)
 
-check I don't have a product key and proceed with the installation.
+Check 'I don't have a product key' and proceed with the installation.
 
-Now you have succesfully Installed Windows 10 pro Virtual Machine.
+You have now successfully installed the Windows 10 Pro virtual machine.
 
+### Step 2: Installing the Windows Server 2022 Virtual Machine
+We are using Windows Server 2022 in this project, and you can download it from the official Microsoft site.
 
-### Step 2 ~ Installing Windows Server 2022 Virtual Machine
-We are using Windows Server 2022 Version in this Project, you can download this from the official Microsoft site.
-
-Now create a new Virtual Machine then select the iso image.
+Now, create a new virtual machine and select the ISO image.
 
 ![Screenshot 2025-02-21 185111](https://github.com/user-attachments/assets/4ce1245b-edc5-4cd8-b0e0-df99997b1001)
 
-Check the Skip Unintended installation and assign the hardware resources you want, for memory, it is recommended to assign 4gb as Memory for better user experience.
+Check 'Skip Unintended Installation' and assign the hardware resources you want. For memory, it is recommended to allocate 4GB for better user experience.
 
 ![Screenshot 2025-02-21 193158](https://github.com/user-attachments/assets/d922719f-d062-4227-afe7-19581e9af402)
 
-Select the Windows Server with Desktop Experience for Graphical User Interface.
+Select Windows Server with Desktop Experience for the graphical user interface.
 
-Proceed with the Installation.
+Proceed with the installation.
 
 ![Screenshot 2025-02-21 194134](https://github.com/user-attachments/assets/8b2f7edb-8435-4914-8197-f11cb45afbac)
 
-You can provide the Input key using this feature.
+You can provide the input key using this feature.
 
-Now you have succesfully Installed Windows 10 Server 2022 Virtual Machine.
+You have now successfully installed the Windows Server 2022 virtual machine.
 
+### Step 3: Installing the Parrot OS Virtual Machine
+You can also use Kali Linux as an alternative. Here, I am just going to download Parrot OS for the virtual machine and import the file to create the virtual machine.
 
-### Step 3 ~ Installing Parrot OS Virtual Machine
-You can also use Kali Linux Alternatively. In here I am just gonna download the parrot OS for the Virutal Machine and Import the file to create the Virtual Machine.
+You have now successfully installed the Parrot OS virtual machine.
 
-Now you have succesfully Installed Parrot OS Virtual Machine.
+### Step 4: Installing the Splunk Server
 
+In this project, Ubuntu Server is used to configure the Splunk Server. You can download Ubuntu Server from the official site.
 
-### Step 4 ~ Installing Splunk Server
-
-In this project Ubunut Server is used to Configured Splunk Server. You can download the Ubuntu Server from the official site.
-
-Now create a new Virtual Machine then select the iso image, Skip unintended installation and assign the Hardware resource. it is recommended to assign 8GB ram for this server because the splunks indexer need so much resources in order to work smoothly.
+Now, create a new virtual machine, select the ISO image, skip unintended installation, and assign the hardware resources. It is recommended to allocate 8GB of RAM for this server, as the Splunk indexer requires significant resources to function smoothly.
 
 Proceed with the Installation
 
+### Step 5: Configuring the Network
 
-### Step 5 ~ Configuring Network
-
-We need to Configure all the VM to the Same NAT Network.
+We need to configure all the VMs to the same NAT network.
 
 ![image](https://github.com/user-attachments/assets/7b144ed7-79a9-445e-8f9f-7246cacc11e7)
 
-We need to create a new NAT Network using with any private address ranges and naming the network according to our choice.
-
+We need to create a new NAT network using any private address range and name the network according to our preference.
 
 ![image](https://github.com/user-attachments/assets/52131323-20ba-41da-93d3-3a6a96f9c1ed)
 
-Now configure all the Projects Virtual Machine to the NAT Network we created before.
+Now, configure all the project’s virtual machines to the NAT network we created earlier.
 
+### Step 6: Configuring the Splunk Server
 
-### Step 6 ~ Configuring Splunk Server
-
-### Assigning Static Ip Address
-We are going to assign a static ip address to the Splunk Server.
+### Assigning a Static IP Address
+We are going to assign a static IP address to the Splunk server.
 
 ```
 sudo nano /etc/netplan/50-cloud-init.yaml
 ```
 
-your filename might be different so it is best to first get into 
+Your filename might be different, so it’s best to first navigate to..
 ```
 cd etc/netplan
 ```
@@ -120,44 +114,43 @@ ls
 
 ![image](https://github.com/user-attachments/assets/c04640bd-ac06-4bd7-9f96-4e5a87210705)
 
-You will see a `.yaml` file, so that's the file we want to configure. 
+You will see a .yaml file; that's the file we want to configure
 
 ![image](https://github.com/user-attachments/assets/01a3231a-c83e-47b1-a12b-9e95fa98b698)
 
-Assign the Private ip address and configure all the essential details. Refer above.
+Assign the private IP address and configure all the essential details as mentioned above.
 
-#### Download and Installing Splunk Enterprise
+#### Downloading and Installing Splunk Enterprise
 
-Now Download the Splunk Enterprise trial version on your host Machine. Make sure you download it as `.deb` file for linux.
+Now, download the Splunk Enterprise trial version on your host machine. Make sure to download it as a .deb file for Linux.
 
 ```
 sudo apt update && sudo apt install virtualbox-guestadditions-iso && sudo apt install virtualbox-guest-utils
 ```
 
-
-Install this in your Splunk Server (Ubuntu Server). If you are using other Hypervisors like Vmware then refer the official page guide to find how to share folders from your host to the Virtualmachine on that hypervisor.
+Install this on your Splunk server (Ubuntu Server). If you are using other hypervisors like VMware, refer to the official guide to learn how to share folders from your host to the virtual machine on that hypervisor.
 
 ![image](https://github.com/user-attachments/assets/e955759b-c2f8-49d6-a659-674d7c790e32)
 
-Share the splunk Enterprise trial version downloaded on your host to the Splunk Server using the Shared folder option in Virtual box. 
+Share the Splunk Enterprise trial version downloaded on your host with the Splunk server using the shared folder option in VirtualBox.
 
 ```
 sudo reboot
 ```
 
-Reboot the Splunk Server.
+Reboot the Splunk server.
 
 ```
 sudo adduser <your_username> vboxsf
 ```
 
-We need to add our user to the vboxsf group to access the share that we created on our host to this Virtual Machine.
+We need to add our user to the vboxsf group to access the shared folder that we created on our host for this virtual machine.
 
 ```
 mkdir share
 ```
 
-We are creating a folder named share so we can mount the share into this folder
+We are creating a folder named 'share' so we can mount the shared folder into this directory.
 
 ```
 sudo mount -t vboxsf -o uid=1000,gid=1000, <shared-folder-name> share/
@@ -187,7 +180,7 @@ sudo -u splunk bash
 ./splunk start
 ```
 
-Now accept the license and configure the credentials.
+Now, accept the license and configure the credentials.
 
 ```
 exit
@@ -203,11 +196,11 @@ sudo ./splunk enable boot-start -user splunk
 
 ![image](https://github.com/user-attachments/assets/89f63b82-b4bc-4a37-ab50-dfb9c0030ccd)
 
-#### Assigning Static Ip Address
+#### Assigning a Static IP Address
 
 ![image](https://github.com/user-attachments/assets/1939b22d-3300-42fc-a3a2-ec65d2e29359)
 
-Go to your Adapter Properties > Internet Protocol Version 4 > assign the static ip address
+Go to your Adapter Properties > Internet Protocol Version 4 > assign the static IP address.
 
 #### Setting up Active Directory Domain Service
 
@@ -218,87 +211,87 @@ Open Server Manager, then:
 ![image](https://github.com/user-attachments/assets/a03ac413-f0db-4f9c-98e9-54a6aff437ce)
 
 
-In the Installation Type tab, Make sure you select the first option
+In the Installation Type tab, make sure you select the first option.
 
 ![image](https://github.com/user-attachments/assets/a0a94944-4dd7-4c0b-835d-693645364709)
 
-Select the Active Directory Domain Services for Server Roles and proceed with the installtion.
+Select the Active Directory Domain Services for Server Roles and proceed with the installation.
 
 #### Setting up Domain Controller
 
 ![image](https://github.com/user-attachments/assets/cd28be95-6407-41dd-8afb-24a21a33bbf8)
 
- Click Manager(flag icon) in the server manager and click promote it as Domain controller.
+Click Manager (flag icon) in the Server Manager and click to promote it as Domain Controller.
 
 ![image](https://github.com/user-attachments/assets/fad27eed-eb07-4809-b52a-97407208ba39)
 
-In here, the root domain name `Hello.local`
+In here, the root domain name is `Hello.local`
 
-Now proceed with the installation and restart the Server
+Now, proceed with the installation and restart the Server
 
 #### Creating Domain User Account
 
-In the server managers tool, you can see this option:
+In the Server Manager tool, you will see this option:
 
 ![image](https://github.com/user-attachments/assets/ced6f5ba-e420-4862-9230-200f7eb85529)
 
-Lets create a new Organization Unit, named IT and add a user called Michael Jack.
+Let's create a new Organization Unit, named IT, and add a user called Michael Jack with the username `Mick`.
 
 ![image](https://github.com/user-attachments/assets/c3d24212-2100-466b-a17d-50861e1e477e)
 
-Also Organization unit named HR and add Valorant as user.
+Also, create an Organization Unit named HR and add Valorant as a user.
 
 ![image](https://github.com/user-attachments/assets/3c68ec91-0ebb-4e0b-80ef-fedcbd9ff876)
 
 
 #### Reach Splunk Server Web Interface and Configure Listening
-enter the splunk server ip with the default port 8000 in the browser
+Enter the Splunk server IP with the default port 8000 in the browser.
 
 ![image](https://github.com/user-attachments/assets/a5fa6cc7-8647-4951-8361-b748e93a0a18)
 
-You can sign in with the credential that you provided during splunk installation on the splunk server (Ubuntu Server).
+You can sign in with the credentials that you provided during Splunk installation on the Splunk server (Ubuntu Server).
 
-Go to Settings > Forwarding and Receiving 
+Go to Settings > Forwarding and Receiving.
 
 ![image](https://github.com/user-attachments/assets/a9b3c92d-bae2-4727-8a9d-d64436c8dcb0)
 
-In the Receive data option click Add new. Set the default port `9997` and save it.
+In the Receive Data option, click Add New. Set the default port `9997` and save it.
 
 ![image](https://github.com/user-attachments/assets/4ca2e5c6-7b8b-41bd-8d68-734ac46adfc8)
   
 Go to Settings > Indexes
 
-Create New Index as `endpoint` and save it. You can name the Index of your choice that make sense but in here I am gonna name it as `endpoint`. 
+Create a new index as `endpoint` and save it. You can name the index of your choice, but here I’m naming it `endpoint`.
 
 #### Download and Install Splunk Forwarder
 
-Use the same credential you used for the Splunk Enterprise Free trial on your host Machine in here also and download the Splunk forwarder from the website.
+Use the same credentials you used for the Splunk Enterprise Free Trial on your host machine and download the Splunk Forwarder from the website.
 
-Once download it complete. Now Install the Splunk forwarder.
+Once the download is complete, install the Splunk forwarder.
 
 ![image](https://github.com/user-attachments/assets/30522815-33ec-45d2-ac82-70e66e766b6b)
-During the Installation Process, Make sure you configure the indexer to your Splunk Server instance with the default port of `9997`
 
-#### Downloading and installing Sysmon
+During the installation process, make sure you configure the indexer to your Splunk Server instance with the default port of `9997`.
 
-Downlaod it from the Sysinternals.
+#### Downloading and Installing Sysmon
 
-For sysmon config, we are using olafs config file
-https://github.com/olafhartong/sysmon-modular/blob/master/sysmonconfig.xml
+Download it from Sysinternals.
 
-Open Powershell and locate into the sysmon executable directory
+For Sysmon config, we are using Olaf's config file: https://github.com/olafhartong/sysmon-modular/blob/master/sysmonconfig.xml
+
+Open PowerShell and navigate to the Sysmon executable directory.
 
 ```
 .\Sysmon64.exe -i ..\sysmonconfig.xml
 ```
 
-`sysmonconfig.xml`, this is the config file that we are mentioning. Now accept the license agreement and install the sysmon. 
+`sysmonconfig.xml` is the config file that we are mentioning. Now, accept the license agreement and install Sysmon.
 
 #### Forwarding Sysmon and Windows Event Logs
 
-locate into `C:\Program Files\SplunkUniversalForwarder\etc\system\local\`
+Navigate to `C:\Program Files\SplunkUniversalForwarder\etc\system\local\`.
 
-As you don't want to mess up your default `input.conf` file, we are creating a new `input.conf` file in this directory and using it to forward logs.
+As you don't want to mess up your default `input.conf` file, create a new `input.conf` file in this directory and use it to forward logs.
 
 ```
 [WinEventLog://Application]
@@ -330,19 +323,21 @@ renderXml = true
 source = XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
 ```
 
-As we created the index as `endpoint`, I mentioned the index as endpoint but if you named it anythign else then change it accordingly. Now copy it and paste it in the new `input.conf` file that you created in the above mentioned directory.
+As we created the index as `endpoint`, I mentioned the index as endpoint. If you named it anything else, change it accordingly. Now, copy and paste it into the new `input.conf` file you created in the directory above.
 
-Configure the SplunkForwarder Service to run as Local System Account.
+Configure the Splunk Forwarder service to run as the Local System Account.
+
 ![image](https://github.com/user-attachments/assets/cc4427d9-9a77-42a6-999e-8fa6e38aa588)
 
-Now stop and start the SplunkForwarder Service in the Windows Server.
+Now stop and start the Splunk Forwarder service on the Windows server.
 
 ![image](https://github.com/user-attachments/assets/65fdb705-40c4-4de6-9f18-5ce8cf1b20d6)
 
-Everytime you make any changes to the SplunkForwarder, Make sure you restart the SplunkForwader service then only the changes will be reflected on the Splunk Server.
+Every time you make any changes to the Splunk Forwarder, make sure to restart the Splunk Forwarder service so that the changes are reflected on the Splunk server.
 
 #### Enable RDP
-Go to This PC > Properties > Advanced System Settings
+
+Go to This PC > Properties > Advanced System Settings.
 
 ![image](https://github.com/user-attachments/assets/f17c469b-3e11-49d8-818d-3b4a2090151f)
 
@@ -355,53 +350,52 @@ Select Users and add users.
 #### Rename the Host
 ![image](https://github.com/user-attachments/assets/26f9915d-70fb-48c8-8d04-b503d07c7de7)
 
-#### Assigning Static Ip Address
+#### Assigning Static IP Address
 ![image](https://github.com/user-attachments/assets/df48dcbb-63ba-4ae4-9132-c5f1abb50db2)
 
-Set the dns address as Domain controller's ip adress.
+Set the DNS address as the Domain Controller's IP address.
 
-### connecting our Windows 10 machine to the Domain
+### Connecting Our Windows 10 Machine to the Domain
 
 ![image](https://github.com/user-attachments/assets/3277d276-8bc7-4c23-8158-fed20fe7a8aa)
 
 ![image](https://github.com/user-attachments/assets/d14bd2b5-7026-4fcb-a8aa-bff33bf6980d)
 
-Enter the domain name here, in our case `Hello.local`
+Enter the domain name here; in our case, `Hello.local`.
 
-After changing that click okay and restart the device.
+After changing that, click OK and restart the device.
 
-Now you can login using the Domain user credential and you are joined to te domain succesfully 
-
+Now, you can log in using the domain user credentials, and you will have successfully joined the domain.
 
 #### Download and Install Splunk Forwarder
 
-Use the same credential you used for the Splunk Enterprise Free trial on your host Machine in here also and download the Splunk forwarder from the website.
+Use the same credentials you used for the Splunk Enterprise Free Trial on your host machine to download the Splunk forwarder from the website.
 
-Once download it complete. Now Install the Splunk forwarder.
+Once the download is complete, install the Splunk forwarder.
 
 ![image](https://github.com/user-attachments/assets/30522815-33ec-45d2-ac82-70e66e766b6b)
-During the Installation Process, Make sure you configure the indexer to your Splunk Server instance with the default port of `9997`
 
-#### Downloading and installing Sysmon
+During the installation process, make sure you configure the indexer to your Splunk Server instance with the default port of `9997`.
 
-Downlaod it from the Sysinternals.
+#### Downloading and Installing Sysmon
 
-For sysmon config, we are using olafs config file
-https://github.com/olafhartong/sysmon-modular/blob/master/sysmonconfig.xml
+Download it from Sysinternals.
 
-Open Powershell and locate into the sysmon executable directory
+For Sysmon config, we are using Olaf's config file: https://github.com/olafhartong/sysmon-modular/blob/master/sysmonconfig.xml
+
+Open PowerShell and navigate to the Sysmon executable directory.
 
 ```
 .\Sysmon64.exe -i ..\sysmonconfig.xml
 ```
 
-`sysmonconfig.xml`, this is the config file that we are mentioning. Now accept the license agreement and install the sysmon. 
+`sysmonconfig.xml` is the config file we are referring to. Now, accept the license agreement and install Sysmon.
 
-#### Forwarding Sysmon logs and Windows Event Logs
+#### Forwarding Sysmon Logs and Windows Event Logs
 
-locate into `C:\Program Files\SplunkUniversalForwarder\etc\system\local\`
+Navigate to `C:\Program Files\SplunkUniversalForwarder\etc\system\local\`
 
-As you don't want to mess up your default `input.conf` file, we are creating a new `input.conf` file in this directory and using it to forward logs.
+As you don't want to mess up your default `input.conf` file, create a new `input.conf` file in this directory and use it to forward logs.
 
 ```
 [WinEventLog://Application]
@@ -433,16 +427,17 @@ renderXml = true
 source = XmlWinEventLog:Microsoft-Windows-Sysmon/Operational
 ```
 
-As we created the index as `endpoint`, I mentioned the index as endpoint but if you named it anythign else then change it accordingly. Now copy it and paste it in the new `input.conf` file that you created in the above mentioned directory.
+As we created the index as `endpoint`, make sure to adjust the index if you named it something else. Now, copy and paste this configuration into the new `input.conf` file you created in the directory mentioned above.
 
-Configure the SplunkForwarder Service to run as Local System Account.
+Configure the SplunkForwarder Service to run as the Local System Account.
+
 ![image](https://github.com/user-attachments/assets/cc4427d9-9a77-42a6-999e-8fa6e38aa588)
 
-Now stop and start the SplunkForwarder Service in the Windows 10 Machine.
+Now, stop and start the SplunkForwarder Service on the Windows 10 Machine.
 
-### Step 9 ~ Configuring Parrot Machine and Bruteforcing RDP
+### Step 9 ~ Configuring the Parrot Machine and Bruteforcing RDP
 
-#### Assigning Static Ip Address
+#### Assigning a Static IP Address
 
 ```
 nmcli connection modify "your_connection_name" ipv4.addresses 192.168.1.100/24
@@ -451,7 +446,7 @@ nmcli connection modify "your_connection_name" ipv4.method manual
 nmcli connection modify "your_connection_name" ipv4.dns "8.8.8.8 8.8.4.4"
 ```
 
-Now Restart the Connection
+Now, restart the connection.
 
 ```
 nmcli connection down "your_connection_name" && nmcli connection up "your_connection_name"
@@ -462,23 +457,22 @@ nmcli connection down "your_connection_name" && nmcli connection up "your_connec
 mkdir AD-Project
 ```
 
-We will work our attack upon this folder to make this organized.
+We will work on our attack in this folder to keep it organized.
 
-#### Installing crowbar
-
+#### Installing Crowbar
 ```
 sudo apt update && sudo apt install crowbar
 ```
 
-#### Getting our wordlist
+#### Getting Our Wordlist
 
 ```
 cd /usr/share/wordlist
 ```
 
-We can find the famous rockyou.txt password list but it won't be enough to crack the password so from a attacker perspective they need to do Information Gathering in order to acquire valid information about the target and they will make the wordlist depends on that information.
+We can find the famous rockyou.txt password list, but it won't be enough to crack the password. From an attacker's perspective, they need to perform information gathering to acquire valid information about the target, and they will create a wordlist based on that information.
 
-We will just get the first 10 password of the rockyou.txt and add the real password in there to simulate the attack.
+To simulate the attack, we will use the first 10 passwords from rockyou.txt and add the real password to the list.
 
 ```
 head -n 10 /usr/share/wordlist/rockyou.txt > ~/AD-Project/passwords.txt
@@ -488,9 +482,9 @@ head -n 10 /usr/share/wordlist/rockyou.txt > ~/AD-Project/passwords.txt
 nano passwords.txt
 ```
 
-Now we can add the password in between to succesfully bruteforce the user's rdp.
+Now, we can add the password to the list to successfully brute-force the user's RDP.
 
-##### Bruteforcing using crowbar 
+##### Bruteforcing Using Crowbar 
 
 ```
 crowbar -b rdp -u Mick -C passwords.txt -s 10.0.2.16/32
@@ -498,44 +492,40 @@ crowbar -b rdp -u Mick -C passwords.txt -s 10.0.2.16/32
 
 ![Screenshot 2025-02-25 113451](https://github.com/user-attachments/assets/5e555e40-80eb-463c-b7f9-5b5c568f6630)
 
-We got the Password, Now we can look into the splunk logs.
+We got the password, and now we can check the Splunk logs.
 
-### Step 10 ~ Analyzing Bruteforce Attack using Splunk
+### Step 10 ~ Analyzing Bruteforce Attack Using Splunk
 
 ![Screenshot 2025-02-25 113143](https://github.com/user-attachments/assets/14302afd-ccb6-4ba3-be7a-88bb3dfc396a)
 
-After Searching for Windows Eventcode 4625 which is the log for logon failed attempt. We can see there are so much events that happened within 5 minitues and it was all happening at the same time which clearly inidcates it is a bruteforce attempt
+After searching for Windows EventCode 4625, which indicates a failed logon attempt, we can see many events occurring within 5 minutes. They all happened at the same time, which clearly indicates a brute-force attempt.
 
 ![Screenshot 2025-02-25 113222](https://github.com/user-attachments/assets/6c50a21e-32a6-43f8-a7b5-f31cb9fc8e6e)
 
-if we look inside the logs, we can see all the attempts are made from our Parrot host with `10.0.2.154`. So we can look if the bruteforce attempt was succesfull by looking at the Eventcode 4624 which is for succesfull logon events. 
+If we look inside the logs, we can see that all the attempts were made from our Parrot host with the IP address 10.0.2.154. So, we can check if the brute-force attempt was successful by looking at EventCode 4624, which represents a successful logon event. 
 
 ![Screenshot 2025-02-25 113403](https://github.com/user-attachments/assets/1092453a-4248-442f-986e-c0a3753cfe87)
 
-We can see one logon success from the attacker host which indicates that the bruteforce attempt was succesfull.
+We can see one logon success from the attacker host, which indicates that the brute-force attempt was successful.
 
 ![Screenshot 2025-02-25 113429](https://github.com/user-attachments/assets/699f6e09-fcf8-4a00-a33e-157ddd7390fc)
 
 ### Step 11 ~ Installing Atomic Red Team on Windows 10 VM
 
-#### Excluding Directory
+#### Excluding a Directory
 
-Open the Windows Security settings and exclude the entire C:\ drive 
+Open the Windows Security settings and exclude the entire C:\ drive.
 
 ![image](https://github.com/user-attachments/assets/a11dbbb5-f893-4cd9-94b0-c4db10dcdf9a)
 
 
 ![image](https://github.com/user-attachments/assets/9b112dde-ad1e-4b2f-9ac8-5619ff8ed51f)
 
-Enter the Administrator Credential.
+Enter the Administrator credentials.
 
 ![image](https://github.com/user-attachments/assets/bc8b29ad-4083-47f4-8aab-c7a52d6678c1)
 
-
-
-
-
-Open the Powershell as Administrator 
+Open PowerShell as Administrator.
 
 ```
 Set-ExecutionPolicy Bypass CurrentUser
@@ -545,21 +535,21 @@ IEX (IWR 'https://raw.githubusercontent.com/redcanaryco/invoke-atomicredteam/mas
 Install-Atomic RedTeam -getAtomics
 ```
 
-Now you installed the Atomic Red Team on the Windows Machine.
+Now you have installed Atomic Red Team on the Windows machine.
 
-Using Atomic Red Team, We can generate Telemetrary from different TTP's.
+Using Atomic Red Team, you can generate telemetry from different TTPs (Tactics, Techniques, and Procedures).
 
-We can look at MITRE Attack Framework and most of the Technique in that Framework is included in the Atomic Red Team. So we can Perform those Technique and generate Telematary so we can look into the Splunk.
+You can refer to the MITRE ATT&CK Framework, as most techniques in that framework are included in Atomic Red Team. By performing those techniques, you can generate telemetry and analyze it in Splunk.
 
-For Example, Lets Execute `T1136.001` Sub Technique using Atomic Red Team
+For example, let's execute the `T1136.001` sub-technique using Atomic Red Team.
 
 ![image](https://github.com/user-attachments/assets/46a1427d-77d5-48c3-b6bc-432640fa1926)
 
-if we look at the splunk and investigate those logs, we can see the Telemetary generated by this Windows 10 Machine.
+If we look at Splunk and investigate the logs, we can see the telemetry generated by this Windows 10 machine.
 
 ![Screenshot 2025-02-25 152721](https://github.com/user-attachments/assets/c753a875-4685-48f1-b7eb-5d9a7cd41170)
 
-This is very useful because we can develop our investigating skills using that since most of the technique will have its detection technique in the MITRE, so we can learn from that. Also if there is no Telematary generated then there is a gap in the visibility so we can know that and fix that. 
+This is very useful because it helps develop investigation skills. Most techniques have detection methods in the MITRE ATT&CK Framework, so you can learn from them. Also, if no telemetry is generated, it highlights a visibility gap that can be addressed.
 
 
 
